@@ -1,0 +1,3 @@
+# TEXT-AUTO-COMPLITE.ahk
+
+Basic AutoHotKey Gui TEXT AUTO COMPLITE
