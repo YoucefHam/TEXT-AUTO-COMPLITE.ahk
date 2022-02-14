@@ -1,0 +1,33 @@
+{$lua}
+if syntaxcheck then return end
+memrec.Async = true
+[ENABLE]
+-- Tutorial Step 4 Float Value
+-- local AddressString = '["Tutorial-x86_64.exe"+0x325AA0]+0x818'
+local key = VK_SHIFT
+local AddressString = '["Tutorial-x86_64.exe"+325AA0]+0x818'
+local Address = getAddress( AddressString )
+local DownValue = 20  -- Value while Key is Pressed Down
+local UpValue = 100  -- Value while Key is Not Pressed
+
+hk = createHotkey( function()
+   while isKeyPressed( key ) do
+     writeFloat( Address, DownValue ) -- Value while Key is Pressed Down
+     sleep(10)
+     if not isKeyPressed( key ) then
+         writeFloat( Address, UpValue ) -- Value while Key is Not Pressed
+     end
+   end
+   if not isKeyPressed( key ) then
+         writeFloat( Address, UpValue ) -- Value while Key is Not Pressed
+   end
+end, key )
+
+[DISABLE]
+key = nil
+AddressString = nil
+Address = nil
+if hk then
+  hk.destroy()
+  hk = nil
+end
